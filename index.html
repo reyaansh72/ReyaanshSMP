@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReyaanshSMP | Official Minecraft Server</title>
+    <!-- Google Fonts for Material Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Material You Theme Variables */
+        :root {
+            /* Default Theme: Deep Purple */
+            --primary: #6750a4;
+            --on-primary: #ffffff;
+            --primary-container: #eaddff;
+            --on-primary-container: #21005d;
+            
+            --background: #fffbff;
+            --on-background: #1c1b1f;
+            --surface: #fffbff;
+            --on-surface: #1c1b1f;
+            --surface-variant: #e7e0ec;
+            --on-surface-variant: #49454f;
+            --outline: #79747e;
+
+            /* Material Radii */
+            --radius-small: 8px;
+            --radius-medium: 16px;
+            --radius-large: 28px;
+            --radius-full: 9999px;
+
+            /* Transitions */
+            --theme-transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--on-background);
+            transition: var(--theme-transition);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* App Bar / Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            background-color: var(--surface);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: var(--theme-transition);
+        }
+
+        .logo-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 0.5px;
+            transition: var(--theme-transition);
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 24px;
+            background: linear-gradient(180deg, var(--surface) 0%, var(--primary-container) 100%);
+            border-bottom-left-radius: var(--radius-large);
+            border-bottom-right-radius: var(--radius-large);
+            transition: var(--theme-transition);
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--on-primary-container);
+            letter-spacing: -0.5px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--on-surface-variant);
+            margin-bottom: 32px;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        /* Material Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 24px;
+            height: 56px;
+            border-radius: var(--radius-full);
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--on-primary);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+            opacity: 0.95;
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        /* Content Section */
+        .container {
+            max-width: 1200px;
+            margin: 64px auto;
+            padding: 0 24px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            margin-bottom: 32px;
+            color: var(--on-background);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        /* Material Cards */
+        .card {
+            background-color: var(--surface-variant);
+            color: var(--on-surface-variant);
+            padding: 24px;
+            border-radius: var(--radius-large);
+            transition: var(--theme-transition);
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--on-background);
+        }
+
+        .card p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        /* Theme Selector Panel */
+        .theme-selector {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            background-color: var(--surface);
+            padding: 16px;
+            border-radius: var(--radius-large);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 100;
+            transition: var(--theme-transition);
+        }
+
+        .theme-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--on-surface-variant);
+            margin-right: 8px;
+        }
+
+        .color-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid var(--surface);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .color-btn:hover {
+            transform: scale(1.15);
+        }
+
+        /* Material Snackbar (Toast) */
+        .snackbar {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #313033; /* Dark surface for contrast */
+            color: #f4eff4;
+            padding: 14px 24px;
+            border-radius: var(--radius-small);
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: bottom 0.3s cubic-bezier(0.2, 0, 0, 1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .snackbar.show {
+            bottom: 32px;
+        }
+
+        /* SVG Icons */
+        svg {
+            fill: currentColor;
+            width: 24px;
+            height: 24px;
+        }
+        
+        /* Footer */
+        footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 24px;
+            color: var(--on-surface-variant);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo-title">ReyaanshSMP</div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Welcome to ReyaanshSMP</h1>
+        <p>Experience the ultimate survival journey. Build, survive, and conquer with an amazing community. Click the button below to copy our server IP and join the fun!</p>
+        
+        <button class="btn btn-primary" onclick="copyServerIP()">
+            <svg viewBox="0 0 24 24">
+                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+            </svg>
+            <span id="ip-display">Loading IP...</span>
+        </button>
+    </section>
+
+    <!-- Features Section -->
+    <div class="container">
+        <h2 class="section-title">Server Features</h2>
+        <div class="features-grid">
+            <div class="card">
+                <h3>Economy Survival</h3>
+                <p>A finely tuned player-driven economy. Trade resources, set up shops, and become the wealthiest player on ReyaanshSMP.</p>
+            </div>
+            <div class="card">
+                <h3>Custom Enchants</h3>
+                <p>Take your gear to the next level with unique custom enchantments that change the way you fight and mine.</p>
+            </div>
+            <div class="card">
+                <h3>Friendly Community</h3>
+                <p>Active staff and a welcoming player base ensure a grief-free, enjoyable experience for everyone.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme Selector -->
+    <div class="theme-selector">
+        <span class="theme-title">Theme</span>
+        <!-- Colors dynamically apply via JS -->
+        <div class="color-btn" style="background-color: #6750a4;" onclick="changeTheme('purple')"></div>
+        <div class="color-btn" style="background-color: #0061a4;" onclick="changeTheme('blue')"></div>
+        <div class="color-btn" style="background-color: #1a6c30;" onclick="changeTheme('green')"></div>
+        <div class="color-btn" style="background-color: #b3261e;" onclick="changeTheme('red')"></div>
+        <div class="color-btn" style="background-color: #8b5000;" onclick="changeTheme('orange')"></div>
+    </div>
+
+    <!-- Snackbar for Copied IP -->
+    <div id="snackbar" class="snackbar">
+        <svg viewBox="0 0 24 24">
+            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+        </svg>
+        <span id="snackbar-text">IP Copied!</span>
+    </div>
+
+    <footer>
+        &copy; <span id="year"></span> ReyaanshSMP. All rights reserved. Not affiliated with Mojang AB.
+    </footer>
+
+    <!-- Script Logic -->
+    <script>
+        // ==========================================
+        // 1. IP CONFIGURATION (Stored in Variable)
+        // ==========================================
+        const REYAANSH_SERVER_IP = "play.reyaanshsmp.com";
+
+        // Display the IP on the button when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('ip-display').innerText = `Copy IP: ${REYAANSH_SERVER_IP}`;
+            document.getElementById('year').innerText = new Date().getFullYear();
+        });
+
+        // ==========================================
+        // 2. COPY TO CLIPBOARD & SNACKBAR SYSTEM
+        // ==========================================
+        let snackbarTimeout;
+        
+        function copyServerIP() {
+            // Write IP to clipboard
+            navigator.clipboard.writeText(REYAANSH_SERVER_IP).then(() => {
+                showSnackbar(`Copied ${REYAANSH_SERVER_IP} to clipboard!`);
+            }).catch(err => {
+                showSnackbar(`Failed to copy IP. Select manually: ${REYAANSH_SERVER_IP}`);
+            });
+        }
+
+        function showSnackbar(message) {
+            const snackbar = document.getElementById('snackbar');
+            const snackbarText = document.getElementById('snackbar-text');
+            
+            snackbarText.innerText = message;
+            snackbar.classList.add('show');
+
+            // Clear previous timeout if clicked multiple times quickly
+            clearTimeout(snackbarTimeout);
+            
+            // Hide after 3 seconds
+            snackbarTimeout = setTimeout(() => {
+                snackbar.classList.remove('show');
+            }, 3000);
+        }
+
+        // ==========================================
+        // 3. MATERIAL YOU DYNAMIC THEMING
+        // ==========================================
+        const themes = {
+            purple: {
+                primary: '#6750a4',
+                onPrimary: '#ffffff',
+                primaryContainer: '#eaddff',
+                onPrimaryContainer: '#21005d',
+                surfaceVariant: '#e7e0ec',
+                onSurfaceVariant: '#49454f'
+            },
+            blue: {
+                primary: '#0061a4',
+                onPrimary: '#ffffff',
+                primaryContainer: '#d1e4ff',
+                onPrimaryContainer: '#001d36',
+                surfaceVariant: '#dfe2eb',
+                onSurfaceVariant: '#43474e'
+            },
+            green: {
+                primary: '#1a6c30',
+                onPrimary: '#ffffff',
+                primaryContainer: '#a6f5a9',
+                onPrimaryContainer: '#002107',
+                surfaceVariant: '#dee5d8',
+                onSurfaceVariant: '#424940'
+            },
+            red: {
+                primary: '#b3261e',
+                onPrimary: '#ffffff',
+                primaryContainer: '#f9dedc',
+                onPrimaryContainer: '#410e0b',
+                surfaceVariant: '#f4dddd',
+                onSurfaceVariant: '#534341'
+            },
+            orange: {
+                primary: '#8b5000',
+                onPrimary: '#ffffff',
+                primaryContainer: '#ffdcbe',
+                onPrimaryContainer: '#2c1600',
+                surfaceVariant: '#f5dfd2',
+                onSurfaceVariant: '#534339'
+            }
+        };
+
+        function changeTheme(themeName) {
+            const root = document.documentElement;
+            const theme = themes[themeName];
+
+            if (theme) {
+                root.style.setProperty('--primary', theme.primary);
+                root.style.setProperty('--on-primary', theme.onPrimary);
+                root.style.setProperty('--primary-container', theme.primaryContainer);
+                root.style.setProperty('--on-primary-container', theme.onPrimaryContainer);
+                root.style.setProperty('--surface-variant', theme.surfaceVariant);
+                root.style.setProperty('--on-surface-variant', theme.onSurfaceVariant);
+            }
+        }
+    </script>
+</body>
+</html>
